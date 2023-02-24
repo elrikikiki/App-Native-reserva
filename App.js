@@ -1,20 +1,40 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Switch, View} from 'react-native';
+/* import Constants from 'expo-constants'; */
+import { NativeBaseProvider } from "native-base";
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
+import Navigation from './src/navigation/Navigation.jsx';
 export default function App() {
+  
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+    <NativeBaseProvider>
+      <Navigation/>
+    </NativeBaseProvider>
+    
+    
+    /* <NativeBaseProvider >
+      <SafeAreaView>
+    <NativeRouter>
+      <Routes>
+        <Route path='/' element={<Loguin main={<Main/>}/>}>
+        </Route>
+        <Route path='/main' element={<Main/>}/>
+        <Route path='/carrusel1' element={<Carrusel1 />}/>
+        <Route path='/categoria/:categoryName' element={<ItemListContainer />}/>
+        <Route path='/detail' element={<ItemDetailContainer />}/>
+        </Routes>
       <StatusBar style="auto" />
-    </View>
+    </NativeRouter>
+    </SafeAreaView>
+    </NativeBaseProvider> */
+    
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+   /*  marginTop:Constants.statusBarHeight */
   },
 });
