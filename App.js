@@ -2,8 +2,6 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Switch, View} from 'react-native';
 /* import Constants from 'expo-constants'; */
 import { NativeBaseProvider } from "native-base";
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-
 import Navigation from './src/navigation/Navigation.jsx';
 export default function App() {
   

@@ -1,27 +1,26 @@
 import { View,Text } from "native-base";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import ItemList from '../AllOfItems/ItemList'
 import { restaurantes} from '../mock/mockRestaurant'
-export default function ItemListContainer() {
-    const [restaurants, setRestaurants] = useState([])
-   
-    useEffect(()=> {
-       const getRestaurants = ()=> {
-        return new Promise ((res,rej)=> {
-            res(restaurantes)
-        })
-       };
-       getRestaurants()
-       .then((res)=>{
-        setRestaurants(res);
-       })
-       .catch((error)=> {
-        (error);
-       })
-    },[]);
-    return(
-    <View>
-            <ItemList restaurants={restaurants}/>
-    </View>       
+import CategoryScroll from "./CategoryScroll";
+export default function ItemListContainer({navigation}) {
+    
+   const [category, setCategory] = useState(null);
+   const filteredRestos = useMemo(() => {
+     return category ? restaurantes.filter(product => product.categoria === category) : restaurantes;
+   }, [category, restaurantes]);
+ 
+   const handleCategoryPress = selectedCategory => {
+     setCategory(selectedCategory);
+   };
+
+    return (
+
+        <View>
+            <CategoryScroll handleCategoryPress={handleCategoryPress}/>
+            <ItemList navigation={navigation} filteredRestos={filteredRestos} />
+        </View>
+    
+          
     )
 }

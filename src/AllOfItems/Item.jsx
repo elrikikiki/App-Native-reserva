@@ -1,10 +1,11 @@
-import { View,Text,Image, FlatList, AspectRatio, Center, Box, Stack, Heading, HStack } from "native-base";
-import { Button } from "react-native";
+import { View,Text,Image, FlatList, AspectRatio, Center, Box, Stack, Heading, HStack, Button } from "native-base";
+import { TouchableNativeFeedback } from "react-native";
+import { TouchableHighlight } from "react-native";
 import { Link } from "react-router-native";
-export default function ItemListContainer({resto}) {
-    return(
-        
+export default function ItemListContainer({item, navigation}) {
+    return (
         <Box alignItems="center" pb='30'>
+          <TouchableHighlight onPress={() => navigation.navigate('Details', { itemId: item.id })}>
         <Box maxW="80" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1" _dark={{
         borderColor: "coolGray.600",
         backgroundColor: "gray.700"
@@ -17,7 +18,7 @@ export default function ItemListContainer({resto}) {
           <Box>
             <AspectRatio w="100%" ratio={16 / 9}>
               <Image 
-              source={{uri: resto.img}} alt={resto.nombre} />
+              source={{uri: item.img}} alt={item.nombre} />
             </AspectRatio>
             <Center bg="error.800" _dark={{
             bg: "error.700"
@@ -32,14 +33,14 @@ export default function ItemListContainer({resto}) {
           <Stack p="4" space={3}>
             <Stack space={2}>
               <Heading size="md" ml="-1">
-                {resto.nombre}
+                {item.nombre}
               </Heading>
               <Text fontSize="xs" _light={{
               color: "error.700"
             }} _dark={{
               color: "error.700"
             }} fontWeight="500" ml="-0.5" mt="-1">
-                {resto.direccion}
+                {item.direccion}
               </Text>
               <Text fontSize="xs" _light={{
               color: "violet.500"
@@ -50,7 +51,7 @@ export default function ItemListContainer({resto}) {
               </Text>
             </Stack>
             <Text fontWeight="400">
-              {resto.shortText}
+              {item.shortText}
             </Text>
             <HStack alignItems="center" space={4} justifyContent="space-between">
               <HStack alignItems="center">
@@ -59,11 +60,16 @@ export default function ItemListContainer({resto}) {
               }} fontWeight="400">
                   Últimas mesas
                 </Text>
+                {/* <Button 
+                onPress={() => navigation.navigate('Details', { itemId: item.id })}
+                >
+                  <Text>id Press</Text>
+                </Button> */}
               </HStack>
             </HStack>
           </Stack>
         </Box>
-       
+        </TouchableHighlight>
       </Box> 
       
     )

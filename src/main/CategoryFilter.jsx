@@ -6,10 +6,8 @@ const CategoryFilter = () => {
   const navigation = useNavigation()
   return (
     <View>
-      <Button title='Back' onPress={()=> navigation.goBack}/>
-        {/* <Link to='/categoria/comidaMexicana'>
-        <Text>Comida Mexicana</Text>
-        </Link> */}
+      {/* <Button title='Back' onPress={()=> navigation.goBack}/> */}
+       
       
     </View>
   )
