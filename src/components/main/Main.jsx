@@ -8,9 +8,8 @@ export default function Main({navigation}) {
         <ScrollView>
             <CarruselPromos/>
             <ItemListContainer navigation={navigation}/>
-            <Button title='Ir al loguin' onPress={()=> navigation.navigate('hola')} />
+            {/* <Button title='Ir al loguin' onPress={()=> navigation.navigate('hola')} /> */}
             </ScrollView>
         </>
-       
     )
 }

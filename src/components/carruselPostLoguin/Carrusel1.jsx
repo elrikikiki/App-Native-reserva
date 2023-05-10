@@ -112,8 +112,6 @@ export default function Carrusel1() {
                 <Text style={{color:'white', fontWeight:'bold'}}>CONTINUAR</Text>
                 </Box>
                 </Link>
-                
-            
            </View>
         </> 
     )

@@ -1,0 +1,124 @@
+import React, { useState } from "react";
+import { Select, FormControl, Input, Button, Modal } from "native-base";
+import { useFormik } from "formik";
+import { TouchableOpacity, View, Text } from "react-native";
+import { Calendar } from "react-native-calendars";
+import AntDesign from "react-native-vector-icons/AntDesign";
+import axios from "axios";
+
+  const NEWRESERVATION_URL = "http://localhost:3500/api/reservation/newReservation";
+  const FormReserv = ({ navigation, item }) => {
+  const itemId = item._id;
+  const [showModal, setShowModal] = useState(false);
+  const [selectedDate, setSelectedDate] = useState("");
+  const {
+    values,
+    isSubmitting,
+    setFieldValue,
+    handleSubmit,
+    errors,
+    handleChange,
+  } = useFormik({
+    initialValues: {
+      id: item.nombre,
+      fecha: "",
+      hora: "",
+      personas: "",
+       checkbox con descuento 
+    },
+    onSubmit: async (values) => {
+      try {
+        const response = await axios.post(NEWRESERVATION_URL, values);
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      } 
+      acá envias los valores a la base de datos
+    },
+    validate: (values) => {
+      const errors = {};
+      if (!values.personas) errors.personas = "Completa cant";
+      if (!values.hora || values.hora.length < 3) errors.hora = "Completa hora";
+      return errors;
+    },
+  });
+  console.log(errors);
+
+  return (
+    <>
+      <View>
+        <FormControl>
+          <FormControl.Label>Calendario</FormControl.Label>
+          <Calendar
+            onDayPress={(day) => {
+              setSelectedDate(day.dateString);
+              handleChange("date")(day.dateString);
+            }}
+            markedDates={{ [selectedDate]: { selected: true } }}
+          />
+          <FormControl.Label>Elegir cantidad de personas</FormControl.Label>
+          <Select
+            placeholder="Elegir cantidad de personas"
+            onValueChange={(value) => setFieldValue("personas", value)}
+            selectedValue={values.personas}
+          >
+            <Select.Item label="1 persona" value="1" />
+            <Select.Item label="2 personas" value="2" />
+          </Select>
+          <FormControl.Label>Horario</FormControl.Label>
+          <Input
+            error
+            value={values.hora}
+            onChangeText={(text) => setFieldValue("hora", text)}
+          />
+          <Text>{errors.hora ? errors.hora : ""}</Text>
+          <Button bg="error.800" onPress={() => setShowModal(true)}>
+            Enviar
+          </Button>
+          <Modal
+            isOpen={showModal}
+            onClose={() => setShowModal(false)}
+            _backdrop={{ _dark: { bg: "coolGray.800" }, bg: "warmGray.50" }}
+          >
+            <Modal.Content maxWidth="350" maxH="212">
+              <Modal.CloseButton />
+              <Modal.Header>Confirmación de reserva</Modal.Header>
+              <Modal.Body>
+                <Text>Tu correo es: santizanini@gmail.com</Text>
+                <Text>
+                  Reservaste en: {item.nombre} para
+                  {` ${values.personas} personas`} el día {selectedDate} a las{" "}
+                  {values.hora}
+                </Text>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button.Group space={2}>
+                  <Button
+                    variant="ghost"
+                    colorScheme="blueGray"
+                    onPress={() => {
+                      setShowModal(false);
+                    }}
+                  >
+                    Atrás
+                  </Button>
+                  <Button
+                    bg="error.800"
+                    onPress={() => {
+                      setShowModal(false);
+                      handleSubmit();
+                    }}
+                  >
+                    Confirmar
+                  </Button>
+                </Button.Group>
+              </Modal.Footer>
+            </Modal.Content>
+          </Modal>
+        </FormControl>
+      </View>
+    </>
+  );
+};
+
+export default FormReserv;

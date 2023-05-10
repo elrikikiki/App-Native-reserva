@@ -3,13 +3,13 @@ import { StyleSheet, Switch, View} from 'react-native';
 /* import Constants from 'expo-constants'; */
 import { NativeBaseProvider } from "native-base";
 import Navigation from './src/navigation/Navigation.jsx';
+import 'react-native-gesture-handler'
 export default function App() {
   
   return (
     <NativeBaseProvider>
       <Navigation/>
     </NativeBaseProvider>
-    
     
     /* <NativeBaseProvider >
       <SafeAreaView>

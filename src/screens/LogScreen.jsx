@@ -1,6 +1,6 @@
 import { View, Text, Button } from 'react-native'
 import React from 'react'
-import Loguin from '../LogIn/Loguin'
+import Loguin from '../components/LogIn/Loguin'
 
 const LogScreen = ({navigation}) => {
   return (
